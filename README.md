@@ -4,7 +4,6 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-API untuk mengambil data historis saham Indonesia (IDX) dari Investing.com yang mendukung sistem otomasi **IDX Signal V2**.
 
 ## 📊 Tentang Proyek
 
@@ -98,27 +97,6 @@ GET /search?q={symbol}
 curl "http://localhost:8000/search?q=BBRI"
 ```
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "query": "BBRI",
-    "total_results": 1,
-    "stocks": [
-      {
-        "code": "29049",
-        "symbol": "BBRI",
-        "name": "Bank Rakyat Indonesia",
-        "flag": "Indonesia",
-        "exchange": "IDX"
-      }
-    ]
-  },
-  "message": "Found 1 Indonesian stocks matching 'BBRI'",
-  "timestamp": "2025-06-06T10:30:00"
-}
-```
 
 #### 2. 📈 Historical Data
 ```http
@@ -136,72 +114,7 @@ GET /historical?code={code}&start_date={start}&end_date={end}
 curl "http://localhost:8000/historical?code=29049&start_date=2024-01-01&end_date=2024-06-06"
 ```
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "data": [
-      {
-        "date": "2024-06-06",
-        "open": 4550,
-        "high": 4580,
-        "low": 4530,
-        "close": 4570,
-        "volume": 85000000
-      }
-    ]
-  },
-  "message": "Historical data retrieved for code 29049"
-}
-```
 
-#### 3. 🏢 Stock Information
-```http
-GET /stock-info?symbol={symbol}
-```
-
-**Parameters:**
-- `symbol` (string): Stock symbol (contoh: BBRI, TLKM)
-
-**Example:**
-```bash
-curl "http://localhost:8000/stock-info?symbol=BBRI"
-```
-
-#### 4. 📊 Bulk Historical Data
-```http
-GET /bulk-historical?codes={codes}&start_date={start}&end_date={end}
-```
-
-**Parameters:**
-- `codes` (string): Comma-separated stock codes (max 20)
-- `start_date` (string): Start date (YYYY-MM-DD)
-- `end_date` (string): End date (YYYY-MM-DD)
-
-**Example:**
-```bash
-curl "http://localhost:8000/bulk-historical?codes=29049,1034,26212&start_date=2024-01-01&end_date=2024-06-06"
-```
-
-### Error Handling
-
-API menggunakan standard HTTP status codes:
-
-- `200` - Success
-- `400` - Bad Request (invalid parameters)
-- `404` - Not Found
-- `503` - Service Unavailable (external API issues)
-- `500` - Internal Server Error
-
-**Error Response Format:**
-```json
-{
-  "success": false,
-  "message": "Error description",
-  "timestamp": "2025-06-06T10:30:00"
-}
-```
 
 ## ⚙️ Integration dengan IDX Signal V2
 
@@ -253,17 +166,12 @@ idx-signal-scraping/
 ├── README.md                 # Documentation
 ├── .gitignore               # Git ignore rules
 ├── settings.json            # VS Code settings
-├── docs/                    # Additional documentation
-│   ├── api-examples.md      # API usage examples
-│   └── deployment.md        # Deployment guide
 ├── tests/                   # Test files
 │   ├── test_main.py         # API tests
 │   └── test_utils.py        # Utility tests
 ├── config/                  # Configuration files
 │   └── settings.py          # Application settings
-└── n8n-workflows/           # N8N workflow files
-    ├── Scheduler_Signal_IDX.json
-    └── IDX_Signal_Documentation.md
+
 ```
 
 ## 🧪 Testing
@@ -291,37 +199,7 @@ curl "http://localhost:8000/health"
 ab -n 100 -c 10 "http://localhost:8000/search?q=BBRI"
 ```
 
-## 🚀 Deployment
 
-### Production Setup
-
-1. **Environment Variables**
-   ```bash
-   export ENVIRONMENT=production
-   export LOG_LEVEL=info
-   export API_RATE_LIMIT=100
-   ```
-
-2. **Using Gunicorn**
-   ```bash
-   gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
-   ```
-
-3. **Docker Deployment**
-   ```dockerfile
-   FROM python:3.9-slim
-   COPY requirements.txt .
-   RUN pip install -r requirements.txt
-   COPY . .
-   CMD ["gunicorn", "main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]
-   ```
-
-### Monitoring
-
-- **Health Check**: `GET /health`
-- **Metrics**: Implement Prometheus metrics
-- **Logging**: Structured logging dengan timestamp
-- **Error Tracking**: Centralized error handling
 
 ## 📊 Trading Journal Integration
 
@@ -401,4 +279,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Planned Features
 
 - [ ] Authentication & API keys
-- [
