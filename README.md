@@ -139,23 +139,6 @@ API ini dirancang untuk terintegrasi dengan N8N workflow (`Scheduler_Signal_IDX.
 }
 ```
 
-### Algoritma Confluence Scoring
-
-Sistem menggunakan 4+ indikator teknikal:
-
-1. **Trend Analysis** (Close > SMA-50)
-2. **RSI Oversold** (RSI < 40)
-3. **Volume Spike** (Volume > 1.3x SMA-20)
-4. **Support Cluster** (≥2 pivot low dalam ±1.5%)
-5. **Empirical Bonus** (winRate > 65% & totalTrades ≥ 10)
-
-### Action Recommendations
-
-| Backtest Win Rate | Confluence Score | Rekomendasi |
-|-------------------|------------------|-------------|
-| ≥ 65%             | ≥ 3              | ✅ Sinyal kuat, entry penuh |
-| 55% - 65%         | 2 - 3            | ⚠️ Entry sebagian atau tunggu konfirmasi |
-| < 55%             | < 2              | ❌ Hindari atau watchlist saja |
 
 ## 📁 Project Structure
 
@@ -193,30 +176,6 @@ curl "http://localhost:8000/historical?code=29049&start_date=2024-01-01&end_date
 curl "http://localhost:8000/health"
 ```
 
-### Load Testing
-```bash
-# Using Apache Bench
-ab -n 100 -c 10 "http://localhost:8000/search?q=BBRI"
-```
-
-
-
-## 📊 Trading Journal Integration
-
-API mendukung sistem Trading Journal untuk:
-
-1. **Signal Tracking**: Mencatat setiap signal yang dihasilkan
-2. **Performance Analysis**: Evaluasi akurasi prediksi
-3. **Risk Management**: Monitoring exposure dan drawdown
-4. **Historical Review**: Analisis performance jangka panjang
-
-### Excel Integration
-
-Trading Journal (Excel) mencakup:
-- **Signal Log**: Record semua signal dengan timestamp
-- **Performance Metrics**: Win rate, profit/loss, expectancy
-- **Risk Analysis**: Drawdown analysis, position sizing
-- **Market Analysis**: Sector performance, market conditions
 
 ## 🔧 Configuration
 
@@ -232,50 +191,3 @@ class Settings:
     MAX_BULK_STOCKS = 20
     MAX_DATE_RANGE = 365  # days
 ```
-
-### Rate Limiting
-
-- Default: 100 requests per minute per IP
-- Bulk endpoints: Lower limits
-- Authentication: Higher limits for registered users
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/new-feature`)
-3. Commit changes (`git commit -am 'Add new feature'`)
-4. Push to branch (`git push origin feature/new-feature`)
-5. Create Pull Request
-
-### Development Guidelines
-
-- Follow PEP 8 style guide
-- Add tests for new features
-- Update documentation
-- Use type hints
-- Add logging for important operations
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-- **Documentation**: Check `/docs` endpoint
-- **Issues**: Create GitHub issue
-- **Email**: support@idxsignal.com
-- **Discord**: [IDX Signal Community](https://discord.gg/idxsignal)
-
-## 🔄 Changelog
-
-### v1.0.0 (2025-06-06)
-- Initial release
-- Basic stock search and historical data
-- N8N workflow integration
-- Comprehensive error handling
-- Bulk data endpoints
-- Trading journal integration
-
-### Planned Features
-
-- [ ] Authentication & API keys
