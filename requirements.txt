@@ -1,7 +1,7 @@
 # Core Dependencies
-fastapi==0.68.0
-uvicorn[standard]==0.15.0
-pydantic==1.8.2
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.9.2
 
 # HTTP Client
 curl-cffi==0.6.2
