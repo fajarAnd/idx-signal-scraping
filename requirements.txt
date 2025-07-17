@@ -10,13 +10,13 @@ curl-cffi==0.6.2
 python-multipart==0.0.6
 python-jose[cryptography]==3.3.0
 
-# Development Dependencies
-pytest==7.4.3
-pytest-asyncio==0.21.1
-httpx==0.25.2
-black==23.11.0
-flake8==6.1.0
-isort==5.12.0
+# Remove development dependencies untuk production:
+# pytest==7.4.3
+# pytest-asyncio==0.21.1
+# httpx==0.25.2
+# black==23.11.0
+# flake8==6.1.0
+# isort==5.12.0
 
 # Production Dependencies
 gunicorn==21.2.0
